@@ -1,5 +1,3 @@
-
-
 import java.io.*;
 import java.util.*;
 public class Input_parser{
@@ -12,7 +10,7 @@ public class Input_parser{
     String student_pref_file = args[1];
     //The two main methods:
     Scenario data = getScheduleScenario(class_constr_file, student_pref_file);
-    int conflicts[][]=createConflictMatrix(data);
+    int conflicts[][] = createConflictMatrix(data);
     
     //Create timeslots instances
     for(int i = 1; i <= timeslots.length; i++) {
@@ -21,15 +19,18 @@ public class Input_parser{
 
     //Make and print class schedules
     AssignTimeslot.scheduleClass(classes, timeslots, conflicts, rooms.length);
+    AssignStudent.roomAndStudentAssignment(rooms, timeslots);
+    int count = 0;
     for(int i = 0; i < timeslots.length; i++) {
-    	System.out.print("timeslot_id: " + timeslots[i].id + " ");
-    	HashSet<Class> classes = timeslots[i].scheduled_classes;
-    	System.out.print("classes: ");
-    	for(Class c: classes) {
-    		System.out.print(c.id + " ");
-    	}
-    	System.out.println();
+      System.out.println("timeslot_id: " + timeslots[i].id + " ");
+      HashSet<Class> classes = timeslots[i].scheduled_classes;
+      for(Class c: classes) {
+        System.out.println("class " + c.id + ": room " + c.room.id + ", students: " + c.assigned_students);
+        count += c.assigned_students.size();
+      }
+      System.out.println();
     }
+    System.out.println("Number of student preferences satisfied: " + count);
 
     //Checking conflicts:
     /*for(int i=0; i< conflicts.length;i++){
@@ -108,14 +109,7 @@ public class Input_parser{
       students[count].interested_classes = new HashSet<Class>();
       for(int i=1;i<student_info.length;i++){
         students[count].interested_classes.add(classes[Integer.parseInt(student_info[i])-1]);
-        if (classes[Integer.parseInt(student_info[i])-1].interested_students!=null){
           classes[Integer.parseInt(student_info[i])-1].interested_students.add(students[count]);
-        }
-        else{
-          classes[Integer.parseInt(student_info[i])-1].interested_students = new HashSet<Student>();
-          classes[Integer.parseInt(student_info[i])-1].interested_students.add(students[count]);
-        }
-
       }
       //check
       /*System.out.print(students[count].id+" ");
