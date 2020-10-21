@@ -1,3 +1,5 @@
+
+
 import java.io.*;
 import java.util.*;
 public class Input_parser{
@@ -9,8 +11,26 @@ public class Input_parser{
     String class_constr_file = args[0];
     String student_pref_file = args[1];
     //The two main methods:
-    Scenario data = getScheduleScenario(args[0],args[1]);
+    Scenario data = getScheduleScenario(class_constr_file, student_pref_file);
     int conflicts[][]=createConflictMatrix(data);
+    
+    //Create timeslots instances
+    for(int i = 1; i <= timeslots.length; i++) {
+    	timeslots[i-1] = new Timeslot(i);
+    }
+
+    //Make and print class schedules
+    AssignTimeslot.scheduleClass(classes, timeslots, conflicts, rooms.length);
+    for(int i = 0; i < timeslots.length; i++) {
+    	System.out.print("timeslot_id: " + timeslots[i].id + " ");
+    	HashSet<Class> classes = timeslots[i].scheduled_classes;
+    	System.out.print("classes: ");
+    	for(Class c: classes) {
+    		System.out.print(c.id + " ");
+    	}
+    	System.out.println();
+    }
+
     //Checking conflicts:
     /*for(int i=0; i< conflicts.length;i++){
       for(int j=0; j<conflicts[i].length;j++){
