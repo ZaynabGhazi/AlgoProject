@@ -15,7 +15,7 @@ public class Class implements Comparable<Class> {
     this.interested_students = new HashSet<>();
   }
   public String toString(){
-    return id+" "+room+" "+prof+" "+timeslot+printStudents();
+    return id + "\t" + room.id + "\t" + prof + "\t" + timeslot.id + "\t" + printStudents();
   }
   private String printStudents(){
     String students="";

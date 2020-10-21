@@ -49,6 +49,23 @@ public class Input_parser{
         System.out.println(data.rooms[i]);
     }*/
 
+    try {
+      FileWriter myWriter = new FileWriter("schedule.txt");
+      myWriter.write("Course\tRoom\tTeacher\tTime\tStudents");
+      myWriter.write("\n");
+      for(Class c: classes) {
+        myWriter.write(c.toString() + "\n");
+      }
+      myWriter.close();
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+
+    for(Class c: classes) {
+      System.out.println(c);
+    }
+
   }
   /*
   * THIS IS THE MAIN METHOD YOU WANT TO USE
