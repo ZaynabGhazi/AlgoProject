@@ -10,7 +10,7 @@ public class AssignTimeslot {
 				if(t.scheduled_classes.size()<numRooms) {
 					int conflictsInSlot = 0;
 					for(Class scheduled: t.scheduled_classes) {
-						if (conflicts[scheduled.id-1][c.id-1] == Integer.MAX_VALUE) {
+						if (conflicts[scheduled.id-1][c.id-1] == Integer.MAX_VALUE || scheduled.prof == c.prof) {
 							conflictsInSlot = Integer.MAX_VALUE;
 							break;
 						}
