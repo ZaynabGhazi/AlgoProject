@@ -1,21 +1,24 @@
 import java.util.*;
 import java.io.*;
-public class Class implements Comparable<Class> {
+public class Class{
+  //from file:
   int id;
-  int prof;
-  Timeslot timeslot;
-  Room room;
+  int prof_id;
+  long duration;
+  int num_meetings;
+  String depart;
+  int capacity;
+  //course name = subject + catalog+' '+section
+  String course_name;
+  //assigned by algorithm:
   HashSet<Student> interested_students;
+  Room room;
+  Timeslot timeslot;
   HashSet<Student> assigned_students;
 
-  public Class(int id, int professor){
-    this.id=id;
-    this.prof=professor;
-    this.assigned_students = new HashSet<>();
-    this.interested_students = new HashSet<>();
-  }
+  public Class(int id,int professor){this.id=id;this.prof_id=professor;this.duration=0;this.num_meetings=1;}
   public String toString(){
-    return id + "\t" + room.id + "\t" + prof + "\t" + timeslot.id + "\t" + printStudents();
+    return id+" "+room+" "+prof_id+" "+timeslot+printStudents();
   }
   private String printStudents(){
     String students="";
@@ -23,9 +26,5 @@ public class Class implements Comparable<Class> {
       students+=student+" ";
     }
     return students;
-  }
-  @Override
-  public int compareTo(Class c) {
-    return this.interested_students.size() - ((Class) c).interested_students.size();
   }
 }
