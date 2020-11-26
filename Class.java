@@ -4,7 +4,7 @@ public class Class{
   //from file:
   int id;
   int prof_id;
-  long duration;
+  int duration;
   int num_meetings;
   String depart;
   int capacity;
@@ -13,12 +13,15 @@ public class Class{
   //assigned by algorithm:
   HashSet<Student> interested_students;
   Room room;
-  Timeslot timeslot;
+  Map<Integer, List<Timeslot>> timeslots;
   HashSet<Student> assigned_students;
+  
+  String section;
+
 
   public Class(int id,int professor){this.id=id;this.prof_id=professor;this.duration=0;this.num_meetings=1;}
   public String toString(){
-    return id+" "+room+" "+prof_id+" "+timeslot+printStudents();
+    return id+" "+room+" "+prof_id+" "+timeslots+printStudents();
   }
   private String printStudents(){
     String students="";
