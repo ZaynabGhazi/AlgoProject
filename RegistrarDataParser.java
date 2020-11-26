@@ -171,7 +171,6 @@ public class RegistrarDataParser{
   */
   
   private static void generateTimeslot() {
-
 	  for(int i = 0; i < 7; i++) {
 		  List<Timeslot> list = new ArrayList<>();
 		  for(int j = 1; j <=18; j++) {
