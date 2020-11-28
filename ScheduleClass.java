@@ -289,6 +289,8 @@ public class ScheduleClass {
 				double startTime = 8 + (startSlot - 1) * 0.5;
 				String[] startEndTime = convertTime(startTime, c.duration);
 				System.out.print(c.course_name + " " + days + " " + startEndTime[0] + "-" + startEndTime[1]);
+				System.out.print(" Room:" + c.room + " ");
+				System.out.print("Students:" + c.assigned_students);
 				System.out.println();
 			}
 		}

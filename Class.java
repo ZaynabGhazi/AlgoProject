@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-public class Class{
+public class Class implements Comparable<Class>{
   //from file:
   int id;
   int prof_id;
@@ -19,7 +19,7 @@ public class Class{
   String section;
 
 
-  public Class(int id,int professor){this.id=id;this.prof_id=professor;this.duration=0;this.num_meetings=1;}
+  public Class(int id,int professor){this.id=id;this.prof_id=professor;this.duration=0;this.num_meetings=1;this.assigned_students=new HashSet<Student>();}
   public String toString(){
     return id+" "+room+" "+prof_id+" "+timeslots+printStudents();
   }
@@ -30,4 +30,11 @@ public class Class{
     }
     return students;
   }
+  @Override
+  public int compareTo(Class c) {
+    int slotsNeeded1 = Math.max(this.interested_students.size(), this.capacity);
+    int slotsNeeded2 = Math.max(c.interested_students.size(), c.capacity);
+    return slotsNeeded1 - slotsNeeded2;
+  }
+
 }

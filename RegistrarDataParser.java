@@ -47,9 +47,37 @@ public class RegistrarDataParser{
     }
     createConflictMatrix();
     generateTimeslot();
+    int prefs = 0;
+    for (Class c: classes.values())
+      prefs += c.interested_students.size();
     ScheduleClass.schedule(classes, timeslots, conflictMatrix);
+//    ScheduleClass.printSchedule(classes);
+
+    Room[] allRooms = new Room[rooms.values().size()];
+    int i = 0;
+    for (Room r: rooms.values()) {
+      allRooms[i] = r;
+      i++;
+    }
+    ArrayList<Timeslot> allSlots = new ArrayList<>();
+    for (List<Timeslot> slotLists: timeslots.values()) {
+      for (Timeslot t: slotLists) {
+        allSlots.add(t);
+      }
+    }
+    ArrayList<Class> allClasses = new ArrayList<>();
+    for (Class c: classes.values()) {
+      allClasses.add(c);
+    }
+    AssignStudent.roomAndStudentAssignment(allRooms, allSlots, departRooms, allClasses);
     ScheduleClass.printSchedule(classes);
-    
+    int count = 0;
+    for (Class c: classes.values()) {
+      count += c.assigned_students.size();
+    }
+    System.out.println("Number of student preferences satisfied: " + count);
+    System.out.println("Number of student preferences: " + prefs);
+    System.out.println("% preferences satisfied: " + 100*count/(double)prefs);
     //Debugger: check courses in each time slot
    // ScheduleClass.printSlots(timeslots); 
     
@@ -127,7 +155,7 @@ public class RegistrarDataParser{
       departRooms.put(fields[SUBJECT],depart_rooms);
     }
     //departRooms.get(fields[SUBJECT]).add(fields[ROOM]);
-    //A room's capacity is defined to be the maximu capacity from classes scheduled in it according to data file
+    //A room's capacity is defined to be the maximum capacity from classes scheduled in it according to data file
     if (!rooms.containsKey(fields[ROOM])){
       rooms.put(fields[ROOM],new Room(fields[ROOM],classes.get(str).capacity));
       //departRooms.get(fields[SUBJECT]).add(rooms.get(fields[ROOM]));
