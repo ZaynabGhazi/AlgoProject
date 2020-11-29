@@ -32,8 +32,8 @@ public class Class implements Comparable<Class>{
   }
   @Override
   public int compareTo(Class c) {
-    int slotsNeeded1 = Math.max(this.interested_students.size(), this.capacity);
-    int slotsNeeded2 = Math.max(c.interested_students.size(), c.capacity);
+    int slotsNeeded1 = Math.min(this.interested_students.size(), this.capacity);
+    int slotsNeeded2 = Math.min(c.interested_students.size(), c.capacity);
     return slotsNeeded1 - slotsNeeded2;
   }
 
