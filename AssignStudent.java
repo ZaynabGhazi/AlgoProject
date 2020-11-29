@@ -43,12 +43,11 @@ public class AssignStudent {
                     }
                     currentClass.room = rooms[currentRoomIndex];
                     assignedClasses.add(currentClass);
+                    enrollStudents(currentClass, rooms[currentRoomIndex]);
+                    currentRoomIndex ++;
+                    removeConflicts(currentClass);
                 }
 
-                enrollStudents(currentClass, rooms[currentRoomIndex]);
-                currentRoomIndex ++;
-
-                removeConflicts(currentClass);
             }
         }
 
