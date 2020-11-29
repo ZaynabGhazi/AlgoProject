@@ -17,7 +17,7 @@ public class RegistrarDataParser{
   public static final int   MEETINGS=15;
   public static final int   ROOM=16;
   public static final int   PROF=19;
-  
+
   //general data structures:
   static HashMap<String, Class> classes;
   //static  ArrayList<LinkedList<Timeslot>> timeslots;
@@ -43,7 +43,7 @@ public class RegistrarDataParser{
       String[] fields = csv_line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
       updateClass(fields);
       updateStudent(fields);
-      if (!fields[ROOM].isEmpty()) updateRooms(fields);
+      updateRooms(fields);
     }
     createConflictMatrix();
     generateTimeslot();
@@ -79,8 +79,8 @@ public class RegistrarDataParser{
     System.out.println("Number of student preferences: " + prefs);
     System.out.println("% preferences satisfied: " + 100*count/(double)prefs);
     //Debugger: check courses in each time slot
-   // ScheduleClass.printSlots(timeslots); 
-    
+   // ScheduleClass.printSlots(timeslots);
+
     //DEBUGGER: ROOM CAPACITIES
 //    for(String subject: departRooms.keySet()){
 //      Set<Room> sub_rooms = departRooms.get(subject);
@@ -88,7 +88,7 @@ public class RegistrarDataParser{
 //    	  System.out.println(subject + " " + room.id);
 //      }
     //  for(Room r: sub_rooms) System.out.println(r.id+" "+r.cap);
-   // } 
+   // }
     //DEBUGGER: CONFLICT conflictMatrix
   /*  for(Integer classId: conflictMatrix.keySet()){
       HashMap<Integer,Integer> conflicts = conflictMatrix.get(classId);
@@ -116,7 +116,7 @@ public class RegistrarDataParser{
         course.duration= ((int)c2.getTimeInMillis()-(int)c1.getTimeInMillis())/60000;
       }
       classes.put(str, course);
-      
+
     }
     //DEBUGGER:
    /* int key = Integer.parseInt(fields[COURSE_ID]);
@@ -130,7 +130,7 @@ public class RegistrarDataParser{
     //System.out.println(pair.section + " " + pair.classId + " " + classes.get(pair).depart);
     classes.get(str).capacity++;
     }
-    
+
     if (!students.containsKey(Integer.parseInt(fields[STUDENT_ID]))){
       Student student = new Student(Integer.parseInt(fields[STUDENT_ID]));
       student.interested_classes = new HashSet<>();
@@ -161,11 +161,11 @@ public class RegistrarDataParser{
       //departRooms.get(fields[SUBJECT]).add(rooms.get(fields[ROOM]));
     }
     departRooms.get(fields[SUBJECT]).add(rooms.get(fields[ROOM]));
-    
+
   if (classes.get(str).capacity > rooms.get(fields[ROOM]).cap){
     rooms.get(fields[ROOM]).cap=classes.get(str).capacity;
     }
-    
+
   }
   public static void createConflictMatrix(){
     conflictMatrix = new HashMap<>();
@@ -197,7 +197,7 @@ public class RegistrarDataParser{
   /*
   * Utility methods
   */
-  
+
   private static void generateTimeslot() {
 	  for(int i = 0; i < 7; i++) {
 		  List<Timeslot> list = new ArrayList<>();
@@ -212,8 +212,8 @@ public class RegistrarDataParser{
 		  }
 		  timeslots.put(i, list);
 	  }
-	  
-	  
+
+
   }
   private static Date getTime(String date) throws ParseException {
        SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
