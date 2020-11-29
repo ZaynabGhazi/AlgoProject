@@ -36,5 +36,4 @@ public class Class implements Comparable<Class>{
     int slotsNeeded2 = Math.min(c.interested_students.size(), c.capacity);
     return slotsNeeded1 - slotsNeeded2;
   }
-
 }
