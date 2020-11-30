@@ -33,7 +33,7 @@ public class ScheduleClass {
 				for (int i = 1; i <= 5; i++) {
 					List<Timeslot> slotsOnADay = new ArrayList<>();
 					for (int j = 0; j < numSlots; j++) {
-						slotsOnADay.add(new Timeslot(1, startSlot + j));
+						slotsOnADay.add(new Timeslot(i, startSlot + j));
 					}
 					slots.put(i, slotsOnADay);
 				}
@@ -63,7 +63,7 @@ public class ScheduleClass {
 				for (int i = 1; i <= 4; i++) {
 					List<Timeslot> slotsOnADay = new ArrayList<>();
 					for (int j = 0; j < numSlots; j++) {
-						slotsOnADay.add(new Timeslot(1, startSlot + j));
+						slotsOnADay.add(new Timeslot(i, startSlot + j));
 					}
 					slots.put(i, slotsOnADay);
 				}
