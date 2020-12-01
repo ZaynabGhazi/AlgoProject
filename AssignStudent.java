@@ -5,9 +5,9 @@ public class AssignStudent {
     public static void roomAndStudentAssignment(Room[] rooms, ArrayList<Timeslot> timeSlots, HashMap<String,
             Set<Room>> departRooms, ArrayList<Class> classes){
         Arrays.sort(rooms);
-        Set<Room> unavailableRooms = new HashSet<>();
         Set<Class> assignedClasses = new HashSet<>();
         for (Timeslot currentSlot: timeSlots) {
+            Set<Room> unavailableRooms = new HashSet<>();
             List<Class> scheduledClasses = new ArrayList<>(currentSlot.courses);
             for (Class currentClass: scheduledClasses) {
                 if (!assignedClasses.contains(currentClass)) {
@@ -26,9 +26,9 @@ public class AssignStudent {
 
                         enrollStudents(currentClass, appropriateRoom);
                     }
-
-
                     removeConflicts(currentClass);
+                } else {
+                    unavailableRooms.add(currentClass.room);
                 }
             }
 
@@ -47,7 +47,6 @@ public class AssignStudent {
                     currentRoomIndex ++;
                     removeConflicts(currentClass);
                 }
-
             }
         }
 
