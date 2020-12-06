@@ -17,8 +17,6 @@ public class Class implements Comparable<Class>{
   HashSet<Student> assigned_students;
   
   String section;
-
-
   public Class(int id,int professor){this.id=id;this.prof_id=professor;this.duration=0;this.num_meetings=1;this.assigned_students=new HashSet<Student>();}
   public String toString(){
     return id+" "+room+" "+prof_id+" "+timeslots+printStudents();
