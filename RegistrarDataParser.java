@@ -20,7 +20,6 @@ public class RegistrarDataParser{
 
   //general data structures:
   static HashMap<String, Class> classes;
-  //static  ArrayList<LinkedList<Timeslot>> timeslots;
   static HashMap<Integer,Student> students;
   static HashMap<String,Room> rooms;
   static HashMap<String, Set<Room>> departRooms;
@@ -51,7 +50,6 @@ public class RegistrarDataParser{
     for (Class c: classes.values())
       prefs += c.interested_students.size();
     ScheduleClass.schedule(classes, timeslots, conflictMatrix);
-//    ScheduleClass.printSchedule(classes);
 
     Room[] allRooms = new Room[rooms.values().size()];
     int i = 0;
@@ -78,23 +76,6 @@ public class RegistrarDataParser{
     System.out.println("Number of student preferences satisfied: " + count);
     System.out.println("Number of student preferences: " + prefs);
     System.out.println("% preferences satisfied: " + 100*count/(double)prefs);
-    //Debugger: check courses in each time slot
-   // ScheduleClass.printSlots(timeslots);
-
-    //DEBUGGER: ROOM CAPACITIES
-//    for(String subject: departRooms.keySet()){
-//      Set<Room> sub_rooms = departRooms.get(subject);
-//      for(Room room : sub_rooms) {
-//    	  System.out.println(subject + " " + room.id);
-//      }
-    //  for(Room r: sub_rooms) System.out.println(r.id+" "+r.cap);
-   // }
-    //DEBUGGER: CONFLICT conflictMatrix
-  /*  for(Integer classId: conflictMatrix.keySet()){
-      HashMap<Integer,Integer> conflicts = conflictMatrix.get(classId);
-      for(Integer entry: conflicts.keySet()) System.out.println(entry+": "+conflicts.get(entry));
-    } */
-
   }
   public static void updateClass(String[] fields) throws ParseException{
 	 String str = fields[COURSE_ID] + " " + fields[SECTION];
@@ -118,16 +99,11 @@ public class RegistrarDataParser{
       classes.put(str, course);
 
     }
-    //DEBUGGER:
-   /* int key = Integer.parseInt(fields[COURSE_ID]);
-   System.out.println(classes.get(key).course_name+" "+classes.get(key).capacity+" "+classes.get(key).duration+" "+classes.get(key).num_meetings+" "+classes.get(key).prof_id);
-   */
   }
   public static void updateStudent(String[] fields){
     //only count towards capacity if enrolled and not waitlisted
 	  String str = fields[COURSE_ID] + " " + fields[SECTION];
     if (fields[STATUS].equals("E")) {
-    //System.out.println(pair.section + " " + pair.classId + " " + classes.get(pair).depart);
     classes.get(str).capacity++;
     }
 
@@ -144,9 +120,6 @@ public class RegistrarDataParser{
       student.interested_classes.add(classes.get(str));
       classes.get(str).interested_students.add(student);
     }
-    //DEBUGGER:
-    //System.out.println(students.get(Integer.parseInt(fields[STUDENT_ID])).id);
-    //for(Class course:students.get(Integer.parseInt(fields[STUDENT_ID])).interested_classes) System.out.print(course.course_name+" ");
   }
   public static void updateRooms(String[] fields){
 	  String str = fields[COURSE_ID] + " " + fields[SECTION];
@@ -154,11 +127,9 @@ public class RegistrarDataParser{
       Set<Room> depart_rooms = new HashSet<>();
       departRooms.put(fields[SUBJECT],depart_rooms);
     }
-    //departRooms.get(fields[SUBJECT]).add(fields[ROOM]);
     //A room's capacity is defined to be the maximum capacity from classes scheduled in it according to data file
     if (!rooms.containsKey(fields[ROOM])){
       rooms.put(fields[ROOM],new Room(fields[ROOM],classes.get(str).capacity));
-      //departRooms.get(fields[SUBJECT]).add(rooms.get(fields[ROOM]));
     }
     departRooms.get(fields[SUBJECT]).add(rooms.get(fields[ROOM]));
 
